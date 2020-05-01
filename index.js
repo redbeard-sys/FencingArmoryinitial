@@ -13,6 +13,7 @@
 //     resave: true,
 //     saveUninitialized: true
 // }));
+app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'ejs');
 
 /* Configure MySQL DBMS */
@@ -53,6 +54,12 @@ function isAuthenticated(req, res, next){
 app.get('/', function(req, res){
     res.render('home');
 });
+
+
+app.get('/location', function(req, res){
+    res.render('location.html');
+});
+
 
 /* Login Routes */
 app.get('/login', function(req, res){
