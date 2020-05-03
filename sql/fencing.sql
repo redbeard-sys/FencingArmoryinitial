@@ -60,7 +60,7 @@ INSERT INTO `users` (`userID`, `username`, `password`) VALUES
 (4, 'mrFencer', 'myPasscode');
 
 ALTER TABLE `users`
-    MODIFY `userID` tinyint(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+    MODIFY `userID` tinyint(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 COMMIT;
 
 DROP TABLE IF EXISTS `tickets`;
