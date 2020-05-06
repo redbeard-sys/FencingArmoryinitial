@@ -4,10 +4,12 @@
  var bcrypt = require('bcrypt');
  var mysql = require('mysql');
  var session = require('express-session');
+ //var nodemon = require('nodemon');
 
  var app = express();
-
+    
 app.use(express.static('public'));
+app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(session({
     secret: 'top secret code!',
@@ -75,11 +77,14 @@ app.post('/adminlog',function(req,res){
     let username = req.body.username;
     let password = req.body.password;
     if(username == 'admin' && password == 'password'){
+   
         res.render('adminpage');
     } else {
         alert("Not admin");
     }
 });
+
+
 
 app.post('/login', async function(req, res){
     let isUserExist   = await checkUsername(req.body.username);
@@ -114,6 +119,72 @@ app.post('/register', function(req, res){
 });
 
 
+// app.get('/', function(req, res){
+//   var money = 'select price from prices';
+//     connection.query(money, function(error, results) {
+//         if(error) throw error;
+//         var arr = [];
+//         results.forEach(function(r) {
+//             if (!arr.includes(r.price)) {
+//                 arr.push(r.price);
+//             }
+//         });
+        
+//         res.render('home', {prices: arr});
+//     });
+// });
+
+// app.get('/keyword', function(req, res){
+//     var stmt = 'select * ' +
+//               'from fencing_db ' +
+//               'where itemToFix like\'%' + req.query.keyword + '%\';';
+//     connection.query(stmt, function(error, results){
+//         if(error) throw error;
+//         var name = results[0].firstName + ' ' + results[0].lastName;
+//         res.render('prices', {name: name, quotes: results});      
+//     });
+// });
+app.get('/ticket', function(req,res){
+    res.render('ticket');
+});
+
+app.post('/ticket', function(req, res) {
+    console.log(req.body);
+    connection.query('SELECT COUNT(*) FROM tickets;', function(error, result) {
+        if(error) throw error;
+        if(result.length){
+            var ticketID = result[0]['COUNT(*)']+1;
+            var stmt = 'INSERT INTO tickets' +
+            '(ticketID, userID, brokenItem, problem)' + 'VALUES ' +
+           // '(' 
+                    // ticketID + ',"' +
+                    //  req.body.userID + '","' +
+                    //   req.body.brokenItem + '","' +
+                    //   req.body.problem + '","' +
+` ( '  ${ticketID}  ',
+' ${req.body.userID}', '${req.body.brokenItem}', '${req.body.problem}' ) ;`
+                  //    ');';
+                         console.log(stmt);
+            connection.query(stmt, function(error, result){
+                if(error) throw error;
+                res.redirect('/ticket');
+            })
+        }
+    });
+});
+
+//possible delete
+// app.get('/adminpage', function(req, res){
+//     var stmt = 'SELECT * FROM users;';
+//     console.log(stmt);
+//     var authors = null;
+//     connection.query(stmt, function(error, results){
+//         if(error) throw error;
+//         if(results.length) authors = results;
+//         res.render('adminpage', {authors: authors});
+//     });
+// });
+
 /* Admin Login */
 
 /* Logout Route */
@@ -123,10 +194,11 @@ app.get('/logout', function(req, res){
 });
 
 /* Welcome Route */
-app.get('/welcome', isAuthenticated, function(req, res){
-  res.render('welcome', {user: req.session.user}); 
-});
-
+    app.get('/welcome', isAuthenticated, function(req, res){
+      res.render('welcome', {user: req.session.user}); 
+    });
+    
+  
 /* Error Route*/
 app.get('*', function(req, res){
    res.render('error'); 

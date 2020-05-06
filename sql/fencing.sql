@@ -47,7 +47,7 @@ DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
             `userID` tinyint(2) NOT NULL,
             `username` varchar(25) ,
-            `password` varchar(25)
+            `password` varchar(65)
 );
             
 ALTER TABLE `users`

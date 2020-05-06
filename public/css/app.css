@@ -1,0 +1,26 @@
+body{
+	margin: 10px 0px auto auto;
+	text-align: center;
+}
+
+.notfound {
+	color: red;
+	text-align: center;
+}
+
+
+
+.info {
+	margin-left: 50px;
+	font-size: 15px;
+	text-align: justify;
+}
+
+
+table {
+	text-align: left;
+}
+
+td {
+	padding-right: 50px;
+}
