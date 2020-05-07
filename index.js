@@ -21,9 +21,9 @@ app.set('view engine', 'ejs');
 
 /* Configure MySQL DBMS */
 const connection = mysql.createConnection({
-    host: 'localhost',
-    user: 'seabass',
-    password: 'seabass',
+    host: 'us-cdbr-east-06.cleardb.net',
+    user: 'ba22fd18bfe794',
+    password: 'f924d825',
     database: 'fencing_db'
 });
 connection.connect();
@@ -177,15 +177,16 @@ app.post('/ticket', function(req, res) {
 // app.get('/adminpage', function(req, res){
 //     var stmt = 'SELECT * FROM users;';
 //     console.log(stmt);
-//     var authors = null;
+//     var tickets = null;
 //     connection.query(stmt, function(error, results){
 //         if(error) throw error;
-//         if(results.length) authors = results;
-//         res.render('adminpage', {authors: authors});
+//         if(results.length) tickets = results;
+//         res.render('adminpage', {tickets: tickets});
 //     });
 // });
 
 /* Admin Login */
+
 
 /* Logout Route */
 app.get('/logout', function(req, res){
